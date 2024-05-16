@@ -1,0 +1,87 @@
+<!-- <div class="max-w-4xl mx-auto">
+  <div class="grid grid-cols-3 gap-8 *:shadow *:border *:rounded *:p-4">
+      <div>
+        <img src="{{ product.imgUrl }}" alt=" {{ product.name }}">
+        <h3 class="my-2">
+          <a href="" class="text-2xl">{{ product.name }}</a>
+        </h3>
+          <p><span>{{ product.price}}</span></p>
+          <button (click) = "changeName()" class="bg-blue-500 text-white inline-block py-3 px-5 rounded">Change Name</button>
+           <p><input type="number" (input) = "changePrice($event)" class="border border-red-500"></p> -->
+          <!-- <p><input [(ngModel)]="product.price" class="border border-red-500" /></p>
+            <hr />
+
+            <p><input type="text" [(ngModel)]="user.name" placeholder="name" /></p>
+            <p><input type="text" [(ngModel)]="user.age" placeholder="age" /></p>
+            <pre>{{ user | json }}</pre>
+            <p><button (click)="getUser()" class="btn">Get user</button></p>
+      </div>
+
+
+  </div>
+</div> -->
+
+<div class="max-w-4xl mx-auto">
+  <div class="grid grid-cols-3 gap-8 *:shadow *:border *:rounded *:p-4">
+      <div *ngFor=" let product of products ">
+        <img [src]=" product.imgUrl" [alt]="  product.name ">
+        <h3 class="my-2">
+          <a href="" class="text-2xl">{{ product.name }}</a>
+        </h3>
+          <p><span>{{ product.price}}</span></p>
+          <button  class="bg-blue-500 text-white inline-block py-3 px-5 rounded">Add To Cart</button>
+      </div>
+  </div>
+</div>
+
+
+
+<div class="overflow-x-auto grid grid-cols-12 gap-12">
+  <app-product-add (onAdd)="onHandelAdd($event)" />
+  <table [ngClass] = "selectedProduct ? 'col-span-8': 'col-span-12'"
+  class="w-full divide-y-2 divide-gray-200 bg-white text-sm">
+    <thead class="ltr:text-left rtl:text-right">
+      <tr>
+        <th class=" px-4 py-2 font-medium text-gray-900">Name</th>
+        <th class=" px-4 py-2 font-medium text-gray-900">Price</th>
+        <th class=" px-4 py-2 font-medium text-gray-900">Img</th>
+        <th class=" px-4 py-2 font-medium text-gray-900">Description</th>
+        <th class="px-4 py-2"></th>
+      </tr>
+    </thead>
+
+    <tbody class="divide-y divide-gray-200">
+      <tr *ngFor="let product of products">
+        <td class=" px-4 py-2 font-medium text-gray-900">{{ product.name }}</td>
+        <td class=" px-4 py-2 text-gray-700">{{ product.price }}</td>
+        <td class=" px-4 py-2 text-gray-700">
+          <img class="m-auto" [src]="product.imgUrl" [alt]="product.name">
+        </td>
+        <td class=" px-4 py-2 text-gray-700">{{ product.description }}</td>
+        <td class="whitespace-nowrap px-4 py-2">
+          <a
+            (click) ="Delete(product.id!)"
+            class="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700"
+          >
+            Delete
+          </a>
+
+          <button (click) = "setProduct(product)"
+            class="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+          >
+            Info
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div *ngIf="selectedProduct"
+  class="flow-root col-span-4">
+    <dl class="-my-3 divide-y divide-gray-100 text-sm">
+  <h1>Thông tin sp</h1>
+      <app-product-detail [product]="selectedProduct" />
+    </dl>
+  </div>
+</div>
